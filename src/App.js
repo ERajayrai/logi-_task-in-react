@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+
 import './App.css';
+import  LogIn  from './LogIn';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  Routes,
+  Route
+} from "react-router-dom";
+import  Home  from './Home';
+import {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const [isLoged,setIsLoged]=useState(false);
+  const navigate=useNavigate()
+
+  useEffect(()=>{
+    if(localStorage.getItem('data')==='true'){
+      navigate('/home')
+    }
+  },[])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   
+  <Routes>
+        <Route exact path="/" element={<LogIn  setIsLoged={setIsLoged} isLoged={isLoged}/> } / >
+        <Route path="/home" element={<Home />}/>
+    </Routes>
+  
     </div>
   );
 }
